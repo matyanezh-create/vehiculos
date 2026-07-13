@@ -1,12 +1,6 @@
 pipeline {
     agent any
 
-    parameters {
-        string(name: 'DB_URL', defaultValue: '', description: 'URL JDBC de la base de datos Sucursal')
-        string(name: 'DB_USERNAME', defaultValue: 'admin', description: 'Usuario de la base de datos')
-        password(name: 'DB_PASSWORD', defaultValue: '', description: 'Contrasena de la base de datos')
-    }
-
     triggers {
         githubPush()
     }
@@ -14,6 +8,9 @@ pipeline {
     environment {
         IMAGE_NAME = 'sucursal-vehiculos'
         CONTAINER_NAME = 'contenedor_vehiculos'
+        DB_URL = 'jdbc:mysql://database-1.cushcjzdbzvl.us-east-1.rds.amazonaws.com:3306/Sucursal?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true'
+        DB_USERNAME = 'admin'
+        DB_PASSWORD = credentials('rds-db-password')
     }
 
     stages {
